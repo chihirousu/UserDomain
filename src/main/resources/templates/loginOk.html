@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ログインOK</title>
+</head>
+<body>
+<h1>ようこそ[[${loginUser.name}]]さん</h1>
+<p>ログイン成功です</p>
+<a th:href="@{/logout}">ログアウトページへ</a>
+</body>
+</html>
