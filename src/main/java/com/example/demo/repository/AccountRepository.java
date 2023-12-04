@@ -14,7 +14,6 @@ import com.example.demo.entity.RegisterUser;
 //SpringのDIコンテナに登録 忘れるとサーバー動かない 
 public class AccountRepository {
 	@Autowired
-
 	//JdbcTemplateクラスのインスタンスの注入 
 	JdbcTemplate jdbcTemplate;
 
@@ -31,11 +30,11 @@ public class AccountRepository {
 
 		//		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, "さとう","1234");
 		if (resultList != null) {
-			System.out.println("safe");
 			for (Map<String, Object> result : resultList) {
 				//resultList=[];の場合はスキップ 
 				if (loginUser.getName().equals((String) result.get("name"))
 						&& loginUser.getPass().equals((String) result.get("password"))) {
+					System.out.println("findAccount(LoginUser " + result);	
 					return loginUser;
 					//sessionUserオブジェクトのnameフィールドがまだ空なので、この値をreturn
 				} 
@@ -49,12 +48,26 @@ public class AccountRepository {
 		//重複するレコードの件数が返却される
 		int result = jdbcTemplate.queryForObject
 				(sql, Integer.class, registerUser.getName());
-		System.out.println(result);
+		System.out.println("findAccount(RegisterUser" + result);
 		if (result == 0) {
 			System.out.println("true");
 			return true; //引数で受け取ったregisterUserと同じname、passを持つレコードがDBに存在しない
 		}
 		System.out.println("false");
-		return false; //存在する }
+		return false; //存在する 
 	}
+	public boolean insert(RegisterUser registerUser) {
+		String sql = "INSERT INTO USERS(NAME,PASSWORD,AGE)VALUES(?,?,?)";
+		int result = jdbcTemplate.update
+				(sql,registerUser.getName(),registerUser.getPass(),registerUser.getAge());
+		if(result == 0) {
+		return false;
+		}
+
+		return true;
+		
+	}
+	
+	
+	
 }

@@ -32,11 +32,11 @@ public class UsersServiceImpl implements UsersService{
 	//新規会員登録フォームに入力された会員データをDBに保存
 	@Override
 	public boolean createNewAccount(RegisterUser registerUser) {
-		return false;
-//		if(repository.findAccount(registerUser) == true) {
-//			return repository.insert(registerUser); 
-//	}else {
-//		return repository.insert(registerUser);
-//		}
+
+		if(repository.findAccount(registerUser) == true) {
+			return repository.insert(registerUser); 
+	}else {
+		return repository.insert(registerUser);
+		}
 	} 
 }
